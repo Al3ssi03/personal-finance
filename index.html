@@ -718,4 +718,485 @@
                 <!-- Spese Extra -->
                 <div class="extra-expense-container">
                     <div class="extra-expense-header">
-                        <span style="color: var(--text-secondary); font-siz
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Spese Extra</span>
+                        <button class="add-expense-btn" onclick="addExtraExpense()">+ Aggiungi</button>
+                    </div>
+                    <div id="extraExpenses"></div>
+                </div>
+
+                <!-- Bilancio Mensile -->
+                <div class="monthly-balance">
+                    <div class="balance-row">
+                        <span class="balance-label">Stipendio</span>
+                        <span class="balance-value">1.550€</span>
+                    </div>
+                    <div class="balance-row">
+                        <span class="balance-label">Totale Uscite</span>
+                        <span class="balance-value" id="totalExpenses">1.416€</span>
+                    </div>
+                    <div class="balance-row">
+                        <span class="balance-label">Saldo Mese</span>
+                        <span class="balance-value" id="monthlyBalance">+134€</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tracking Spese PostePay -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">💳</div>
+                    <div class="card-title">PostePay 200€</div>
+                </div>
+                <div id="postepay-tracking">
+                    <div class="spending-row">
+                        <span class="spending-label">Telefono</span>
+                        <span class="spending-budget">Budget: 10€</span>
+                        <input type="number" class="spending-input" value="10" data-budget="10" onchange="updateSpending()">
+                        <div class="spending-status"></div>
+                    </div>
+                    <div class="spending-row">
+                        <span class="spending-label">Claude</span>
+                        <span class="spending-budget">Budget: 20€</span>
+                        <input type="number" class="spending-input" value="20" data-budget="20" onchange="updateSpending()">
+                        <div class="spending-status"></div>
+                    </div>
+                    <div class="spending-row">
+                        <span class="spending-label">Treno</span>
+                        <span class="spending-budget">Budget: 65€</span>
+                        <input type="number" class="spending-input" value="0" data-budget="65" onchange="updateSpending()">
+                        <div class="spending-status"></div>
+                    </div>
+                    <div class="spending-row">
+                        <span class="spending-label">Uscite Weekend</span>
+                        <span class="spending-budget">Budget: 105€</span>
+                        <input type="number" class="spending-input" value="0" data-budget="105" onchange="updateSpending()">
+                        <div class="spending-status"></div>
+                    </div>
+                </div>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-label">Speso</div>
+                        <div class="summary-value" id="totalSpent">30€</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Budget</div>
+                        <div class="summary-value">200€</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Rimasto</div>
+                        <div class="summary-value positive" id="remaining">170€</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fondo Emergenza -->
+            <div class="card full-width emergency-fund">
+                <div class="card-header" style="justify-content: center; border: none;">
+                    <div class="card-icon">🛡️</div>
+                    <div class="card-title">Fondo Emergenza</div>
+                </div>
+                <input type="number" class="fund-input" id="fundAmount" value="2100" onchange="updateFund()">
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Inserisci il totale attuale</p>
+                <div class="progress-container">
+                    <div class="progress-labels">
+                        <span>0€</span>
+                        <span class="target">Target: 8.000€</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 26%"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span id="progressPercent">26% raggiunto</span>
+                        <span id="monthsLeft">~15 mesi al target</span>
+                    </div>
+                </div>
+                
+                <!-- Impatto sul fondo -->
+                <div class="impact-indicator">
+                    <span class="impact-label">Impatto questo mese:</span>
+                    <span class="impact-value positive" id="fundImpact">+400€</span>
+                </div>
+            </div>
+
+            <!-- Analisi Predittiva -->
+            <div class="card full-width prediction-card">
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">Analisi Predittiva</div>
+                </div>
+                <div class="prediction-grid">
+                    <div class="prediction-item">
+                        <div class="prediction-label">Fondo tra 6 mesi</div>
+                        <div class="prediction-value" id="fund6Months">4.500€</div>
+                        <div class="prediction-subtext" id="fund6MonthsDate">Giugno 2026</div>
+                    </div>
+                    <div class="prediction-item">
+                        <div class="prediction-label">Fondo tra 12 mesi</div>
+                        <div class="prediction-value" id="fund12Months">6.900€</div>
+                        <div class="prediction-subtext" id="fund12MonthsDate">Dicembre 2026</div>
+                    </div>
+                    <div class="prediction-item">
+                        <div class="prediction-label">Target 8.000€</div>
+                        <div class="prediction-value" id="targetDate">Mar 2027</div>
+                        <div class="prediction-subtext" id="targetMonths">~15 mesi</div>
+                    </div>
+                    <div class="prediction-item">
+                        <div class="prediction-label">Spesa annuale stimata</div>
+                        <div class="prediction-value" id="yearlyExpense">13.800€</div>
+                        <div class="prediction-subtext">Se continui così</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Regole -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <div class="card-icon">📌</div>
+                    <div class="card-title">Regole di Disciplina</div>
+                </div>
+                <ul class="rules-list">
+                    <li>
+                        <span class="rule-number">1</span>
+                        <span>PostePay finita = stop uscite. Non toccare altre carte.</span>
+                    </li>
+                    <li>
+                        <span class="rule-number">2</span>
+                        <span>Cena a casa prima di uscire. Fuori solo coca/crepes.</span>
+                    </li>
+                    <li>
+                        <span class="rule-number">3</span>
+                        <span>Budget weekend: 26€ totali (8-9€ a sera).</span>
+                    </li>
+                    <li>
+                        <span class="rule-number">4</span>
+                        <span>Weekend dalla ragazza = risparmio automatico.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <button class="save-btn" onclick="saveData()">💾 Salva Dati</button>
+
+        <footer>
+            Piano Finanziario 2025-2029 · Obiettivo Fondo Emergenza: 8.000€
+        </footer>
+    </div>
+
+    <div class="toast" id="toast">✓ Dati salvati!</div>
+
+    <script>
+        // ========================================
+        // CONFIGURAZIONE
+        const years = [2025, 2026, 2027, 2028, 2029];
+        const STIPENDIO = 1550;
+        const TARGET_FONDO = 8000;
+        // ========================================
+        
+        const monthNames = [
+            'Gennaio', 'Febbraio', 'Marzo', 'Aprile',
+            'Maggio', 'Giugno', 'Luglio', 'Agosto',
+            'Settembre', 'Ottobre', 'Novembre', 'Dicembre'
+        ];
+        
+        const months = [];
+        years.forEach(year => {
+            monthNames.forEach(month => {
+                months.push(`${month} ${year}`);
+            });
+        });
+        
+        let currentMonthIndex = 0;
+        let data = {};
+        let extraExpenses = [];
+
+        // Calcola totale uscite
+        function calculateTotalExpenses() {
+            const tradeRepublic = parseFloat(document.getElementById('tradeRepublic').value) || 0;
+            const fondoEmergenza = parseFloat(document.getElementById('fondoEmergenza').value) || 0;
+            const postepay = parseFloat(document.getElementById('postepayRicarica').value) || 0;
+            const accantonamento = parseFloat(document.getElementById('accantonamentoAuto').value) || 0;
+            const diesel = parseFloat(document.getElementById('diesel').value) || 0;
+            
+            let extraTotal = 0;
+            document.querySelectorAll('.extra-expense-amount').forEach(input => {
+                extraTotal += parseFloat(input.value) || 0;
+            });
+            
+            return tradeRepublic + fondoEmergenza + postepay + accantonamento + diesel + extraTotal;
+        }
+
+        // Aggiorna analisi
+        function updateAnalysis() {
+            const totalExpenses = calculateTotalExpenses();
+            const balance = STIPENDIO - totalExpenses;
+            const fondoMensile = parseFloat(document.getElementById('fondoEmergenza').value) || 0;
+            const fondoAttuale = parseFloat(document.getElementById('fundAmount').value) || 0;
+            
+            // Aggiorna bilancio mensile
+            document.getElementById('totalExpenses').textContent = totalExpenses + '€';
+            const balanceEl = document.getElementById('monthlyBalance');
+            balanceEl.textContent = (balance >= 0 ? '+' : '') + balance + '€';
+            balanceEl.style.color = balance >= 0 ? 'var(--accent)' : 'var(--danger)';
+            
+            // Calcola impatto sul fondo
+            // Se spendi più dello stipendio, l'eccesso viene tolto dal fondo
+            let impatto = fondoMensile;
+            if (balance < 0) {
+                impatto = fondoMensile + balance; // balance è negativo, quindi sottrae
+            }
+            
+            const fundImpactEl = document.getElementById('fundImpact');
+            fundImpactEl.textContent = (impatto >= 0 ? '+' : '') + impatto + '€';
+            fundImpactEl.className = 'impact-value ' + (impatto >= 0 ? 'positive' : 'negative');
+            
+            // Aggiorna previsioni
+            updatePredictions(fondoAttuale, impatto, totalExpenses);
+        }
+
+        // Aggiorna previsioni
+        function updatePredictions(fondoAttuale, impattoMensile, speseMensili) {
+            const now = new Date();
+            
+            // Fondo tra 6 mesi
+            const fondo6 = fondoAttuale + (impattoMensile * 6);
+            document.getElementById('fund6Months').textContent = Math.round(fondo6).toLocaleString('it-IT') + '€';
+            const date6 = new Date(now.getFullYear(), now.getMonth() + 6, 1);
+            document.getElementById('fund6MonthsDate').textContent = monthNames[date6.getMonth()] + ' ' + date6.getFullYear();
+            
+            // Fondo tra 12 mesi
+            const fondo12 = fondoAttuale + (impattoMensile * 12);
+            document.getElementById('fund12Months').textContent = Math.round(fondo12).toLocaleString('it-IT') + '€';
+            const date12 = new Date(now.getFullYear(), now.getMonth() + 12, 1);
+            document.getElementById('fund12MonthsDate').textContent = monthNames[date12.getMonth()] + ' ' + date12.getFullYear();
+            
+            // Colora in base a se è positivo o negativo
+            document.getElementById('fund6Months').className = 'prediction-value' + (fondo6 < fondoAttuale ? ' danger' : '');
+            document.getElementById('fund12Months').className = 'prediction-value' + (fondo12 < fondoAttuale ? ' danger' : '');
+            
+            // Mesi per target
+            if (impattoMensile > 0) {
+                const mesiPerTarget = Math.ceil((TARGET_FONDO - fondoAttuale) / impattoMensile);
+                const targetDate = new Date(now.getFullYear(), now.getMonth() + mesiPerTarget, 1);
+                document.getElementById('targetDate').textContent = monthNames[targetDate.getMonth()].substring(0, 3) + ' ' + targetDate.getFullYear();
+                document.getElementById('targetMonths').textContent = '~' + mesiPerTarget + ' mesi';
+            } else {
+                document.getElementById('targetDate').textContent = 'Mai';
+                document.getElementById('targetDate').className = 'prediction-value danger';
+                document.getElementById('targetMonths').textContent = 'Stai perdendo soldi!';
+            }
+            
+            // Spesa annuale
+            const spesaAnnuale = speseMensili * 12;
+            document.getElementById('yearlyExpense').textContent = Math.round(spesaAnnuale).toLocaleString('it-IT') + '€';
+        }
+
+        // Aggiungi spesa extra
+        function addExtraExpense() {
+            const container = document.getElementById('extraExpenses');
+            const id = Date.now();
+            
+            const div = document.createElement('div');
+            div.className = 'extra-expense-item';
+            div.dataset.id = id;
+            div.innerHTML = `
+                <input type="text" class="extra-expense-name" placeholder="Descrizione">
+                <input type="number" class="extra-expense-amount" placeholder="0" onchange="updateAnalysis()">
+                <button class="remove-expense-btn" onclick="removeExtraExpense(${id})">×</button>
+            `;
+            
+            container.appendChild(div);
+        }
+
+        // Rimuovi spesa extra
+        function removeExtraExpense(id) {
+            const item = document.querySelector(`.extra-expense-item[data-id="${id}"]`);
+            if (item) {
+                item.remove();
+                updateAnalysis();
+            }
+        }
+
+        // Load saved data
+        function loadData() {
+            const saved = localStorage.getItem('pianoFinanziario2025_v2');
+            if (saved) {
+                data = JSON.parse(saved);
+                const month = months[currentMonthIndex];
+                if (data[month]) {
+                    // Load operations
+                    const ops = document.querySelectorAll('.operation-item');
+                    ops.forEach((item, i) => {
+                        if (data[month].operations && data[month].operations[i]) {
+                            item.classList.add('checked');
+                        }
+                    });
+                    
+                    // Load operation values
+                    if (data[month].operationValues) {
+                        document.getElementById('tradeRepublic').value = data[month].operationValues.tradeRepublic || 550;
+                        document.getElementById('fondoEmergenza').value = data[month].operationValues.fondoEmergenza || 400;
+                        document.getElementById('postepayRicarica').value = data[month].operationValues.postepayRicarica || 200;
+                        document.getElementById('accantonamentoAuto').value = data[month].operationValues.accantonamentoAuto || 116;
+                        document.getElementById('diesel').value = data[month].operationValues.diesel || 150;
+                    }
+                    
+                    // Load spending
+                    const inputs = document.querySelectorAll('#postepay-tracking .spending-input');
+                    inputs.forEach((input, i) => {
+                        if (data[month].spending && data[month].spending[i] !== undefined) {
+                            input.value = data[month].spending[i];
+                        }
+                    });
+                    
+                    // Load fund
+                    if (data[month].fund) {
+                        document.getElementById('fundAmount').value = data[month].fund;
+                    }
+                    
+                    // Load extra expenses
+                    document.getElementById('extraExpenses').innerHTML = '';
+                    if (data[month].extraExpenses) {
+                        data[month].extraExpenses.forEach(exp => {
+                            const container = document.getElementById('extraExpenses');
+                            const div = document.createElement('div');
+                            div.className = 'extra-expense-item';
+                            div.dataset.id = exp.id;
+                            div.innerHTML = `
+                                <input type="text" class="extra-expense-name" placeholder="Descrizione" value="${exp.name}">
+                                <input type="number" class="extra-expense-amount" placeholder="0" value="${exp.amount}" onchange="updateAnalysis()">
+                                <button class="remove-expense-btn" onclick="removeExtraExpense(${exp.id})">×</button>
+                            `;
+                            container.appendChild(div);
+                        });
+                    }
+                }
+            }
+            updateSpending();
+            updateFund();
+            updateAnalysis();
+        }
+
+        function saveData() {
+            const month = months[currentMonthIndex];
+            if (!data[month]) data[month] = {};
+            
+            // Save operations
+            const ops = document.querySelectorAll('.operation-item');
+            data[month].operations = Array.from(ops).map(item => item.classList.contains('checked'));
+            
+            // Save operation values
+            data[month].operationValues = {
+                tradeRepublic: parseFloat(document.getElementById('tradeRepublic').value) || 0,
+                fondoEmergenza: parseFloat(document.getElementById('fondoEmergenza').value) || 0,
+                postepayRicarica: parseFloat(document.getElementById('postepayRicarica').value) || 0,
+                accantonamentoAuto: parseFloat(document.getElementById('accantonamentoAuto').value) || 0,
+                diesel: parseFloat(document.getElementById('diesel').value) || 0
+            };
+            
+            // Save spending
+            const inputs = document.querySelectorAll('#postepay-tracking .spending-input');
+            data[month].spending = Array.from(inputs).map(input => parseFloat(input.value) || 0);
+            
+            // Save fund
+            data[month].fund = parseFloat(document.getElementById('fundAmount').value) || 0;
+            
+            // Save extra expenses
+            const extraItems = document.querySelectorAll('.extra-expense-item');
+            data[month].extraExpenses = Array.from(extraItems).map(item => ({
+                id: item.dataset.id,
+                name: item.querySelector('.extra-expense-name').value,
+                amount: parseFloat(item.querySelector('.extra-expense-amount').value) || 0
+            }));
+            
+            localStorage.setItem('pianoFinanziario2025_v2', JSON.stringify(data));
+            
+            // Show toast
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        function changeMonth(delta) {
+            saveData();
+            currentMonthIndex = Math.max(0, Math.min(months.length - 1, currentMonthIndex + delta));
+            document.getElementById('currentMonth').textContent = months[currentMonthIndex];
+            
+            // Reset UI
+            document.querySelectorAll('.operation-item').forEach(item => item.classList.remove('checked'));
+            document.querySelectorAll('.spending-input').forEach(input => input.value = 0);
+            document.getElementById('extraExpenses').innerHTML = '';
+            
+            // Reset operation values to defaults
+            document.getElementById('tradeRepublic').value = 550;
+            document.getElementById('fondoEmergenza').value = 400;
+            document.getElementById('postepayRicarica').value = 200;
+            document.getElementById('accantonamentoAuto').value = 116;
+            document.getElementById('diesel').value = 150;
+            
+            loadData();
+        }
+
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+        }
+
+        function updateSpending() {
+            const inputs = document.querySelectorAll('#postepay-tracking .spending-input');
+            let total = 0;
+            
+            inputs.forEach(input => {
+                const value = parseFloat(input.value) || 0;
+                const budget = parseFloat(input.dataset.budget) || 0;
+                const status = input.parentElement.querySelector('.spending-status');
+                
+                total += value;
+                
+                if (value <= budget * 0.8) {
+                    status.className = 'spending-status ok';
+                } else if (value <= budget) {
+                    status.className = 'spending-status warning';
+                } else {
+                    status.className = 'spending-status danger';
+                }
+            });
+            
+            document.getElementById('totalSpent').textContent = total + '€';
+            const remaining = 200 - total;
+            const remainingEl = document.getElementById('remaining');
+            remainingEl.textContent = remaining + '€';
+            remainingEl.className = 'summary-value ' + (remaining >= 0 ? 'positive' : 'negative');
+        }
+
+        function updateFund() {
+            const fund = parseFloat(document.getElementById('fundAmount').value) || 0;
+            const percent = Math.min(100, Math.round((fund / TARGET_FONDO) * 100));
+            
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressPercent').textContent = percent + '% raggiunto';
+            
+            const remaining = TARGET_FONDO - fund;
+            const fondoMensile = parseFloat(document.getElementById('fondoEmergenza').value) || 400;
+            const monthsNeeded = Math.ceil(remaining / fondoMensile);
+            document.getElementById('monthsLeft').textContent = 
+                remaining > 0 ? `~${monthsNeeded} mesi al target` : '🎉 Target raggiunto!';
+            
+            updateAnalysis();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const currentMonth = now.getMonth();
+            
+            if (years.includes(currentYear)) {
+                const yearOffset = years.indexOf(currentYear) * 12;
+                currentMonthIndex = yearOffset + currentMonth;
+            }
+            
+            document.getElementById('currentMonth').textContent = months[currentMonthIndex];
+            loadData();
+        });
+    </script>
+</body>
+</html>
